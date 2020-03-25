@@ -5,6 +5,8 @@ import com.pradipta.reportsuspect.constants.Status;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,6 +38,7 @@ public class Report implements Serializable {
     private Gender suspectGender;
     @NotNull
     private String remarks;
+//    @Enumerated(EnumType.STRING)
     private Status status;
     private Date createdOn;
     private Date modifiedOn;

@@ -6,6 +6,7 @@ import com.pradipta.reportsuspect.handler.ReportHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 public class ReportController {
     @Autowired
     private ReportHandler reportHandler;
+    @CrossOrigin
     @GetMapping("/report")
     public ModelAndView showForm() {
         ReportDto reportDto = new ReportDto();
@@ -26,6 +28,7 @@ public class ReportController {
         modelAndView.setViewName("report");
         return modelAndView;
     }
+    @CrossOrigin
     @PostMapping("/report")
     public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap) {
         System.out.println("here"+reportDto);
@@ -39,11 +42,11 @@ public class ReportController {
             report = reportHandler.saveReport(reportDto);
         }
         modelAndView.addObject("report", report);
-        modelAndView.setViewName("after");
+        modelAndView.setViewName("report");
         return modelAndView;
     }
-
-    @GetMapping("/status/{id}")
+    @CrossOrigin
+    @PostMapping("/status/{id}")
     public Report getStatus(@PathVariable("id") Integer id) {
         return reportHandler.getReport(id);
     }

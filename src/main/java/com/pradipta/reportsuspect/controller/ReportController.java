@@ -30,15 +30,16 @@ public class ReportController {
     public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap) {
         System.out.println("here"+reportDto);
         ModelAndView modelAndView = new ModelAndView();
+        Report report = new Report();
         if (result.hasErrors()) {
             modelAndView.addObject("successMessage", "Please correct the errors");
             modelMap.addAttribute("bindingResult", result);
         }
         else {
-            reportHandler.saveReport(reportDto);
+            report = reportHandler.saveReport(reportDto);
         }
-        modelAndView.addObject("reportDto", new ReportDto());
-        modelAndView.setViewName("report");
+        modelAndView.addObject("report", report);
+        modelAndView.setViewName("after");
         return modelAndView;
     }
 

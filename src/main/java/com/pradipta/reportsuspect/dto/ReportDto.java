@@ -25,4 +25,5 @@ public class ReportDto {
     private Gender suspectGender;
     @NotNull
     private String remarks;
+    private Boolean isForSelf = false;
 }

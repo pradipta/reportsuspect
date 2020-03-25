@@ -1,13 +1,17 @@
 package com.pradipta.reportsuspect.handler;
 
+import com.google.gson.Gson;
 import com.pradipta.reportsuspect.constants.Status;
 import com.pradipta.reportsuspect.dto.ReportDto;
 import com.pradipta.reportsuspect.entity.Report;
 import com.pradipta.reportsuspect.entity.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class ReportHandler {
@@ -35,5 +39,13 @@ public class ReportHandler {
 
         report.setStatus(Status.PENDING);
         return reportService.saveReport(report);
+    }
+
+    public Report getReport(int id) {
+        Optional<Report> report = reportService.getReportById(id);
+        if (!report.isPresent()) {
+            return null;
+        }
+        return report.get();
     }
 }

@@ -1,13 +1,10 @@
 package com.pradipta.reportsuspect.handler;
 
-import com.google.gson.Gson;
 import com.pradipta.reportsuspect.constants.Status;
 import com.pradipta.reportsuspect.dto.ReportDto;
 import com.pradipta.reportsuspect.entity.Report;
 import com.pradipta.reportsuspect.entity.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -30,7 +27,7 @@ public class ReportHandler {
         report.setReporterPhonenumber(reportDto.getReporterPhonenumber());
         report.setReporterZipcode(report.getReporterZipcode());
 
-        report.setSuspectAddess(reportDto.getSuspectAddess());
+        report.setSuspectAddess(reportDto.getSuspectAddress());
         report.setSuspectName(reportDto.getSuspectName());
         report.setSuspectCity(reportDto.getSuspectCity());
         report.setSuspectPhoneNumber(reportDto.getSuspectPhoneNumber());

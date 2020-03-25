@@ -20,12 +20,12 @@ public class ReportController {
     @Autowired
     private ReportHandler reportHandler;
     @CrossOrigin
-    @GetMapping("/report")
+    @GetMapping("")
     public ModelAndView showForm() {
         ReportDto reportDto = new ReportDto();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("reportDto", reportDto);
-        modelAndView.setViewName("report");
+        modelAndView.setViewName("home");
         return modelAndView;
     }
     @CrossOrigin
@@ -42,7 +42,7 @@ public class ReportController {
             report = reportHandler.saveReport(reportDto);
         }
         modelAndView.addObject("report", report);
-        modelAndView.setViewName("report");
+        modelAndView.setViewName("result");
         return modelAndView;
     }
     @CrossOrigin

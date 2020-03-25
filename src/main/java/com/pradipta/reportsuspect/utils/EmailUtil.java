@@ -23,7 +23,7 @@ public class EmailUtil {
     private JavaMailSender javaMailSender;
 
 
-    @Scheduled (cron = "0 0 * * * *")
+    @Scheduled (cron = "* * * * * *")
     public void sendEmail() {
         SimpleMailMessage msg = new SimpleMailMessage();
 

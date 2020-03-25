@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Report a suspect</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+      body {
+        background-color: #36485e;
+      }
+      .container {
+        margin-top: 2%;
+      }
+      .success-header {
+        font-size: 20px;
+        text-align: center;
+        color: white;
+        background-color: green;
+      }
+      .success-p {
+        text-align: center;
+        font-size: 25px;
+      }
+      .error-header {
+        background-color: #e60000;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div th:switch="${report}">
+        <div class="card error-card" th:case=null>
+          <div class="card-header success-header error-header">Error</div>
+          <div class="card-body">
+            <p class="error-p success-p">
+              The report has been could not be recorded.
+            </p>
+            <p class="error-p success-p">
+              We're sorry for the inconvenience.
+            </p>
+            <p class="error-p success-p">Please try again later</p>
+          </div>
+        </div>
+        <div class="card success-card" th:case="*">
+          <div class="card-header success-header">Success</div>
+          <div class="card-body">
+            <p class="success-p">The report has been recorded successfully.</p>
+            <p class="success-p">
+              Your reference number is [[${report.id}]]. Use this to track application.
+            </p>
+            <p class="success-p">Thank you for making a world a better place</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

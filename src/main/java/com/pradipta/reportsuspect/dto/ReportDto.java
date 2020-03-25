@@ -15,7 +15,7 @@ public class ReportDto {
     private String reporterPhonenumber;
     private String reporterCity;
     private String reporterZipcode;
-    private String suspectAddess;
+    private String suspectAddress;
     @NotNull
     private String suspectCity;
     @NotNull

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Report a suspect</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+      body {
+        background-color: #36485e;
+      }
+      .top-row {
+        margin: 0 !important;
+      }
+      .report-main-row {
+        margin: 0 !important;
+      }
+      .report-card {
+        width: 100%;
+      }
+      .container {
+        padding-top: 1%;
+      }
+      .card-inner-row {
+        padding: 2rem;
+      }
+      .row-inner-col-1 {
+        border-right: 1px solid #36485e;
+      }
+      .form-control.is-invalid,
+      .was-validated .form-control:invalid {
+        border-color: #ced4da;
+        background-image: url("");
+      }
+      .submit-btn-row {
+        padding: 1rem;
+      }
+      .btn-success {
+        width: 16%;
+        margin-left: 42%;
+      }
+      .segment-button {
+        width: 100%;
+      }
+      .track-card {
+        width: 100%;
+      }
+      .top-col {
+        padding: 0 2px;
+      }
+      .card-inner-row {
+        padding: 2rem;
+      }
+      .form-control.is-invalid,
+      .was-validated .form-control:invalid {
+        border-color: #ced4da;
+        background-image: url("");
+      }
+      .submit-btn-row {
+        padding: 1rem;
+      }
+      .btn-success {
+        width: 16%;
+        margin-left: 42%;
+      }
+      #loader {
+        margin-left: 47%;
+      }
+      .data-card {
+        margin: 1rem;
+      }
+      .btn {
+        background-color: blue;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card super-card">
+        <div class="row top-row">
+          <div class="col-md-6 top-col">
+            <button
+              class="btn  report-button segment-button"
+              id="report-button"
+            >
+              Report
+            </button>
+          </div>
+          <div class="col-md-6 top-col">
+            <button class="btn track-button segment-button" id="track-button">
+              Track
+            </button>
+          </div>
+        </div>
+        <div class="row report-main-row">
+          <div class="card report-card">
+            <form
+              th:action="@{/report}" th:object="${reportDto}"
+              method="post"
+              class="was-validated"
+              style="width: 100%"
+            >
+              <div class="row card-inner-row">
+                <div class="col-md-6 row-inner-col-1" id="col-1">
+                  <div class="card-header">Reporter Details</div>
+                  <div class="row" style="margin-top: 1rem">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="fname">Firstname: <b>*</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="fname"
+                          placeholder="Enter username"
+                          name="reporterFirstname"
+                          required
+                        />
+                        <!--<div class="valid-feedback">Valid.</div>-->
+                        <!-- <div class="invalid-feedback">
+                                      Please fill out this field.
+                                    </div> -->
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="lname">Lastname: <b>*</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="lname"
+                          placeholder="Enter username"
+                          name="reporterLastname"
+                        />
+                        <!--<div class="valid-feedback">Valid.</div>-->
+                        <!-- <div class="invalid-feedback">
+                                      Please fill out this field.
+                                    </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email: <b>*</b></label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Enter email"
+                      name="reporterEmail"
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone number: <b>*</b></label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="phone"
+                      placeholder="Enter phone number"
+                      name="reporterPhonenumber"
+                      required
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="city">City: <b>*</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="city"
+                      placeholder="Enter city"
+                      name="reporterCity"
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="zipcode">Zipcode: <b>*</b></label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="zipcode"
+                      placeholder="Enter zipcode"
+                      name="reporterZipcode"
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <label class="checkbox-inline"
+                    ><input
+                      type="checkbox"
+                      name="samePerson"
+                      id="isForSelf"
+                      value=""
+                    /><b style="margin-left: 1rem; font-weight:300"
+                      >Report self</b
+                    ></label
+                  >
+                </div>
+                <div class="col-md-6 reporter-col">
+                  <div class="card-header">Suspect Details</div>
+                  <div class="form-group" style="margin-top: 1rem">
+                    <label for="email">Name: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="sName"
+                      placeholder="Enter name"
+                      name="suspectName"
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+
+                  <div class="form-group">
+                    <label for="sAddress">Address: <b>*</b></label>
+                    <textarea
+                      type="textarea"
+                      class="form-control"
+                      id="sAddress"
+                      placeholder="Enter address"
+                      name="suspectAddress"
+                    ></textarea>
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="sCity">City: <b>*</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="sCity"
+                      placeholder="Enter city"
+                      name="suspectCity"
+                      required
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="sZipcode">Zipcode: <b>*</b></label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="sZipcode"
+                      placeholder="Enter zipcode"
+                      name="suspectZipcode"
+                      required
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="sPhone">Phone number: <b>*</b></label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="sPhone"
+                      placeholder="Enter phonenumber"
+                      name="suspectPhoneNumber"
+                      required
+                    />
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="sGender">Gender: <b>*</b></label>
+                    <select
+                      class="form-control"
+                      id="sGender"
+                      name="suspectGender"
+                    >
+                      <option>MALE</option>
+                      <option>FEMALE</option>
+                      <option>OTHER</option>
+                    </select>
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                  <div class="form-group">
+                    <label for="sRemarks">Remarks: <b>*</b></label>
+                    <textarea
+                      type="textarea"
+                      class="form-control"
+                      id="sRemarks"
+                      placeholder="Enter remarks"
+                      name="remarks"
+                      required
+                    ></textarea>
+                    <!--<div class="valid-feedback">Valid.</div>-->
+                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                  </div>
+                </div>
+              </div>
+              <div class="row submit-btn-row">
+                <button type="submit" class="btn btn-success">Report</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row track-main-row">
+          <div class="container">
+            <div class="card">
+              <form
+                id="filesfrm"
+                method="post"
+                class="was-validated"
+                style="width: 100%"
+              >
+                <div class="row card-inner-row">
+                  <div class="col-md-12 reporter-col">
+                    <div class="card-header">Track Application</div>
+                    <div class="form-group" style="margin-top: 1rem">
+                      <label for="email">Application Id: </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="appId"
+                        placeholder="Enter application id"
+                        name="appId"
+                        required
+                      />
+                      <!--<div class="valid-feedback">Valid.</div>-->
+                      <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                    </div>
+                  </div>
+                </div>
+                <div class="row submit-btn-row">
+                  <button type="button" class="btn btn-success btn-track">Track</button>
+                  <img
+                    src="/images/Rolling-1s-200px.svg"
+                    id="loader"
+                    style="max-width: none; width:2rem;"
+                  />
+                </div>
+              </form>
+              <div class="card data-card">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Status</th>
+                      <th>Report Date</th>
+                      <th>Update Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td id="id"></td>
+                      <td id="status"></td>
+                      <td id="reportedOn"></td>
+                      <td id="updatedOn"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function() {
+      $(".track-main-row").hide();
+      $(".track-button").css("background-color", "#cccccc");
+      $(this).css("background-color", "blue");
+      $("#same-person-checkbox").click(function() {
+        if ($(this).is(":checked")) {
+          $(".reporter-col").hide();
+          document.getElementById("col-1").style.maxWidth = "100%";
+          document.getElementById("col-1").style.flex = "0 0 100%";
+          document.getElementById("col-1").style.borderRight = "none";
+        } else {
+          document.getElementById("col-1").style.maxWidth = "50%";
+          document.getElementById("col-1").style.flex = "0 0 50%";
+          document.getElementById("col-1").style.borderRight =
+            "1px solid #36485e";
+
+          $(".reporter-col").fadeIn(200);
+        }
+      });
+      $(".data-card").hide();
+      $("#loader").hide();
+
+      $("#report-button").click(function() {
+        $(".track-button").css("background-color", "#cccccc");
+        $(this).css("background-color", "blue");
+        $(".track-main-row").hide();
+        $(".report-main-row").fadeIn(200);
+      });
+      $("#track-button").click(function() {
+        $(".report-button").css("background-color", "#cccccc");
+        $(this).css("background-color", "blue");
+        $(".track-main-row").fadeIn(200);
+        $(".report-main-row").hide();
+      });
+      $(".btn-track").click(function() {
+        $(".data-card").hide();
+        let id = $("#appId").val();
+        if (!id) {
+          alert("Please enter the application number");
+        } else {
+          $("#loader").show();
+          $(this).hide();
+
+          $.ajax({
+            type: "POST",
+            url: "/status/" + id,
+            success: data => {
+              $("#loader").hide();
+              $(this).show();
+              if (data) {
+                $("#id").text(data.id);
+                $("#status").text(data.status);
+                $("#reportedOn").text(
+                  new Date(data.createdOn).toLocaleString()
+                );
+                $("#updatedOn").text(
+                  new Date(data.modifiedOn).toLocaleString()
+                );
+                $(".data-card").show();
+              } else {
+                alert("Application id does not exist");
+              }
+            },
+            error: err => {
+              $("#loader").hide();
+              $(this).show();
+              alert(
+                "Some unexpected error occurred. Please try after sometime"
+              );
+              console.log(err);
+            }
+          });
+        }
+      });
+    });
+  </script>
+</html>

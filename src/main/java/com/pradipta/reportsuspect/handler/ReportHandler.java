@@ -27,6 +27,7 @@ public class ReportHandler {
         report.setReporterZipcode(report.getReporterZipcode());
 
         report.setSuspectAddess(reportDto.getSuspectAddess());
+        report.setSuspectName(reportDto.getSuspectName());
         report.setSuspectCity(reportDto.getSuspectCity());
         report.setSuspectPhoneNumber(reportDto.getSuspectPhoneNumber());
         report.setSuspectGender(reportDto.getSuspectGender());

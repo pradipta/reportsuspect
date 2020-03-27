@@ -4,6 +4,8 @@ import com.pradipta.reportsuspect.dto.ReportDto;
 import com.pradipta.reportsuspect.entity.Report;
 import com.pradipta.reportsuspect.handler.ReportHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +22,7 @@ public class ReportController {
     @Autowired
     private ReportHandler reportHandler;
     @CrossOrigin
-    @GetMapping("")
+    @GetMapping("/home")
     public ModelAndView showForm() {
         ReportDto reportDto = new ReportDto();
         ModelAndView modelAndView = new ModelAndView();
@@ -30,8 +32,9 @@ public class ReportController {
     }
     @CrossOrigin
     @PostMapping("/report")
-    public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap) {
-        System.out.println("here"+reportDto);
+    public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap, SecurityContextHolder securityContextHolder) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
         ModelAndView modelAndView = new ModelAndView();
         Report report = new Report();
         if (result.hasErrors()) {

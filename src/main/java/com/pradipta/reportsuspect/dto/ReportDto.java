@@ -7,22 +7,12 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class ReportDto {
-    @NotNull
-    private String reporterFirstname;
-    private String reporterLastname;
-    private String reporterEmail;
-    @NotNull
-    private String reporterPhonenumber;
-    private String reporterCity;
-    private String reporterZipcode;
     private String suspectAddress;
-    @NotNull
-    private String suspectCity;
-    @NotNull
-    private String suspectZipcode;
     private String suspectName;
     private String suspectPhoneNumber;
     private Gender suspectGender;
+    private String suspectLocationLongitude;
+    private String suspectLocationLatitude;
     @NotNull
     private String remarks;
     private Boolean isForSelf = false;

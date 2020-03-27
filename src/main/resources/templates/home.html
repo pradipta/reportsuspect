@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+>
   <head>
     <title>Report a suspect</title>
     <meta charset="utf-8" />
@@ -11,6 +15,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-z3vU0XkkvDo7lP6VS65bmwB1T867YG8&v=3.exp&libraries=places,geometry&sensor=false"
+      async
+      defer
+    ></script>
     <style>
       body {
         background-color: #36485e;
@@ -67,7 +76,7 @@
       }
       .btn-success {
         width: 16%;
-        margin-left: 42%;
+        margin-left: 33%;
       }
       #loader {
         margin-left: 47%;
@@ -78,6 +87,10 @@
       .btn {
         background-color: blue;
         color: white;
+      }
+      #map {
+        height: 400px; /* The height is 400 pixels */
+        width: 100%; /* The width is the width of the web page */
       }
     </style>
   </head>
@@ -102,115 +115,16 @@
         <div class="row report-main-row">
           <div class="card report-card">
             <form
-              th:action="@{/report}" th:object="${reportDto}"
+              th:action="@{/report}"
+              th:object="${reportDto}"
               method="post"
               class="was-validated"
               style="width: 100%"
             >
               <div class="row card-inner-row">
-                <div class="col-md-6 row-inner-col-1" id="col-1">
-                  <div class="card-header">Reporter Details</div>
-                  <div class="row" style="margin-top: 1rem">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="fname">Firstname: <b>*</b></label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="fname"
-                          placeholder="Enter username"
-                          name="reporterFirstname"
-                          required
-                        />
-                        <!--<div class="valid-feedback">Valid.</div>-->
-                        <!-- <div class="invalid-feedback">
-                                      Please fill out this field.
-                                    </div> -->
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="lname">Lastname: <b>*</b></label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="lname"
-                          placeholder="Enter username"
-                          name="reporterLastname"
-                        />
-                        <!--<div class="valid-feedback">Valid.</div>-->
-                        <!-- <div class="invalid-feedback">
-                                      Please fill out this field.
-                                    </div> -->
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="email">Email: <b>*</b></label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="email"
-                      placeholder="Enter email"
-                      name="reporterEmail"
-                    />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
-                  </div>
-                  <div class="form-group">
-                    <label for="phone">Phone number: <b>*</b></label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="phone"
-                      placeholder="Enter phone number"
-                      name="reporterPhonenumber"
-                      required
-                    />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
-                  </div>
-                  <div class="form-group">
-                    <label for="city">City: <b>*</b></label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="city"
-                      placeholder="Enter city"
-                      name="reporterCity"
-                    />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
-                  </div>
-
-                  <div class="form-group">
-                    <label for="zipcode">Zipcode: <b>*</b></label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="zipcode"
-                      placeholder="Enter zipcode"
-                      name="reporterZipcode"
-                    />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
-                  </div>
-                  <label class="checkbox-inline"
-                    ><input
-                      type="checkbox"
-                      name="samePerson"
-                      id="isForSelf"
-                      value=""
-                    /><b style="margin-left: 1rem; font-weight:300"
-                      >Report self</b
-                    ></label
-                  >
-                </div>
                 <div class="col-md-6 reporter-col">
-                  <div class="card-header">Suspect Details</div>
-                  <div class="form-group" style="margin-top: 1rem">
-                    <label for="email">Name: </label>
+                  <div class="form-group">
+                    <label for="sName">Name: </label>
                     <input
                       type="text"
                       class="form-control"
@@ -218,10 +132,9 @@
                       placeholder="Enter name"
                       name="suspectName"
                     />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
                   </div>
-
+                </div>
+                <div class="col-md-6 reporter-col">
                   <div class="form-group">
                     <label for="sAddress">Address: <b>*</b></label>
                     <textarea
@@ -231,35 +144,40 @@
                       placeholder="Enter address"
                       name="suspectAddress"
                     ></textarea>
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
                   </div>
-                  <div class="form-group">
-                    <label for="sCity">City: <b>*</b></label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="sCity"
-                      placeholder="Enter city"
-                      name="suspectCity"
-                      required
-                    />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="sCity">City: <b>*</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="sCity"
+                          placeholder="Enter city"
+                          name="suspectCity"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="sZipcode">Zipcode: <b>*</b></label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="sZipcode"
+                          placeholder="Enter zipcode"
+                          name="suspectZipcode"
+                          required
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="sZipcode">Zipcode: <b>*</b></label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="sZipcode"
-                      placeholder="Enter zipcode"
-                      name="suspectZipcode"
-                      required
-                    />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
-                  </div>
+                </div>
+
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="sPhone">Phone number: <b>*</b></label>
                     <input
@@ -270,9 +188,9 @@
                       name="suspectPhoneNumber"
                       required
                     />
-                    <!--<div class="valid-feedback">Valid.</div>-->
-                    <!--<div class="invalid-feedback">Please fill out this field.</div>-->
                   </div>
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="sGender">Gender: <b>*</b></label>
                     <select
@@ -287,6 +205,8 @@
                     <!--<div class="valid-feedback">Valid.</div>-->
                     <!--<div class="invalid-feedback">Please fill out this field.</div>-->
                   </div>
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="sRemarks">Remarks: <b>*</b></label>
                     <textarea
@@ -302,8 +222,40 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-6">
+                <label>Coordinates: <b>*</b></label>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="latitude">Latitude: <b>*</b></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="latitude"
+                        name="suspectLocationLongitude"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="longitude">Longitude: <b>*</b></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="longitude"
+                        name="suspectLocationLatitude"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card map-card" id="map"></div>
+              </div>
               <div class="row submit-btn-row">
-                <button type="submit" class="btn btn-success">Report</button>
+                <button type="submit" class="btn btn-success" style="width: 30%">Report</button>
               </div>
             </form>
           </div>
@@ -337,7 +289,9 @@
                   </div>
                 </div>
                 <div class="row submit-btn-row">
-                  <button type="button" class="btn btn-success btn-track">Track</button>
+                  <button type="button" class="btn btn-success btn-track">
+                    Track
+                  </button>
                   <img
                     src="/images/Rolling-1s-200px.svg"
                     id="loader"
@@ -446,6 +400,36 @@
           });
         }
       });
+
+      function initMap() {
+        navigator.geolocation.getCurrentPosition(
+          p => {
+            $('#latitude').val(p.coords.latitude);
+              $('#longitude').val(p.coords.longitude); 
+            var uluru = { lat: p.coords.latitude, lng: p.coords.longitude };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 14,
+              center: uluru
+            });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({
+              position: uluru,
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              map: map
+            });
+            google.maps.event.addListener(marker, "dragend", function(evt) {
+              $('#latitude').val(evt.latLng.lat().toFixed(7));
+              $('#longitude').val(evt.latLng.lat().toFixed(7)); 
+            });
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
+      initMap();
     });
   </script>
 </html>

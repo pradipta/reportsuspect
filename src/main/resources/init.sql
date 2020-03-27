@@ -38,6 +38,30 @@ INSERT INTO `hibernate_sequence` VALUES (1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `location`
+--
+
+DROP TABLE IF EXISTS `location`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `location` (
+  `id` bigint(20) NOT NULL,
+  `lat` varchar(255) DEFAULT NULL,
+  `lon` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `location`
+--
+
+LOCK TABLES `location` WRITE;
+/*!40000 ALTER TABLE `location` DISABLE KEYS */;
+/*!40000 ALTER TABLE `location` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `report`
 --
 
@@ -50,15 +74,14 @@ CREATE TABLE `report` (
   `modified_on` datetime DEFAULT NULL,
   `remarks` varchar(255) NOT NULL,
   `status` int(11) DEFAULT NULL,
-  `suspect_addess` varchar(255) DEFAULT NULL,
-  `suspect_city` varchar(255) NOT NULL,
   `suspect_gender` int(11) DEFAULT NULL,
   `suspect_name` varchar(255) DEFAULT NULL,
   `suspect_phone_number` varchar(255) DEFAULT NULL,
-  `suspect_zipcode` varchar(255) NOT NULL,
   `reporter_id` int(11) NOT NULL,
+  `suspect_current_location_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKndpjl61ubcm2tkf7ml1ynq13t` (`reporter_id`)
+  KEY `FKndpjl61ubcm2tkf7ml1ynq13t` (`reporter_id`),
+  KEY `FK7ubifku7yeq1ao1k5b3493vvd` (`suspect_current_location_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -92,7 +115,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'Everything Stuff','ADMIN'),(2,'Operator','USER');
+INSERT INTO `role` VALUES (1,'Everything','ADMIN'),(2,'Operator','USER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +145,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (0,'pradiptasarma@outlook.com','Pradipta','Sarma','$2a$10$heyb6ALQ4q8du31F6MPIQ./11blthrKlOvH0KKGEN4LJRNRM5kbWe','08133910729',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -135,4 +157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-28  2:13:46
+-- Dump completed on 2020-03-28  2:48:59

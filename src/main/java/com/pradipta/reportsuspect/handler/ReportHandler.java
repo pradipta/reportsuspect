@@ -3,6 +3,8 @@ package com.pradipta.reportsuspect.handler;
 import com.pradipta.reportsuspect.auth.models.user.UserService;
 import com.pradipta.reportsuspect.constants.Status;
 import com.pradipta.reportsuspect.dto.ReportDto;
+import com.pradipta.reportsuspect.entity.Location;
+import com.pradipta.reportsuspect.entity.LocationService;
 import com.pradipta.reportsuspect.entity.Report;
 import com.pradipta.reportsuspect.entity.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class ReportHandler {
     private ReportService reportService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private LocationService locationService;
     public Report saveReport(ReportDto reportDto) throws Exception{
         Report report = new Report();
         report.setCreatedOn(new Date());
@@ -26,13 +30,14 @@ public class ReportHandler {
         report.setRemarks(reportDto.getRemarks());
         report.setReporter(userService.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(Exception::new));
 
-        report.setSuspectAddess(reportDto.getSuspectAddress());
         report.setSuspectName(reportDto.getSuspectName());
-        report.setSuspectCity(reportDto.getSuspectCity());
         report.setSuspectPhoneNumber(reportDto.getSuspectPhoneNumber());
         report.setSuspectGender(reportDto.getSuspectGender());
-        report.setSuspectZipcode(reportDto.getSuspectZipcode());
-
+        Location location = new Location();
+        location.setLat(reportDto.getSuspectLocationLatitude());
+        location.setLon(reportDto.getSuspectLocationLongitude());
+        locationService.saveLocation(location);
+        report.setSuspectCurrentLocation(location);
         report.setStatus(Status.PENDING);
         return reportService.saveReport(report);
     }

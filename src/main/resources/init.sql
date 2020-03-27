@@ -45,21 +45,12 @@ DROP TABLE IF EXISTS `location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `location` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `lat` varchar(255) DEFAULT NULL,
   `lon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `location`
---
-
-LOCK TABLES `location` WRITE;
-/*!40000 ALTER TABLE `location` DISABLE KEYS */;
-/*!40000 ALTER TABLE `location` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `report`
@@ -82,17 +73,8 @@ CREATE TABLE `report` (
   PRIMARY KEY (`id`),
   KEY `FKndpjl61ubcm2tkf7ml1ynq13t` (`reporter_id`),
   KEY `FK7ubifku7yeq1ao1k5b3493vvd` (`suspect_current_location_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `report`
---
-
-LOCK TABLES `report` WRITE;
-/*!40000 ALTER TABLE `report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `report` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `role`
@@ -145,6 +127,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (0,'pradiptasarmad2@gmail.com','Pradipta','Sarma','$2a$10$GqAFd2W3yHdxgbQsSBlofO.ZIIR1SvzfDSb77ikv1UsBqvWpN/35G','08133910729',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -157,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-28  2:48:59
+-- Dump completed on 2020-03-28  3:19:39

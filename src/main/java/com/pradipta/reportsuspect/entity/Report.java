@@ -6,12 +6,11 @@ import com.pradipta.reportsuspect.constants.Status;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,17 +24,13 @@ public class Report implements Serializable {
     @NotNull
     @ManyToOne
     private User reporter;
-    private String suspectAddess;
-    @NotNull
-    private String suspectCity;
-    @NotNull
-    private String suspectZipcode;
     private String suspectName;
     private String suspectPhoneNumber;
     private Gender suspectGender;
     @NotNull
     private String remarks;
-//    @Enumerated(EnumType.STRING)
+    @OneToOne
+    private Location suspectCurrentLocation;
     private Status status;
     private Date createdOn;
     private Date modifiedOn;

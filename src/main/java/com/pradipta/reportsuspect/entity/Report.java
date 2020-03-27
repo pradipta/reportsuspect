@@ -1,5 +1,6 @@
 package com.pradipta.reportsuspect.entity;
 
+import com.pradipta.reportsuspect.auth.models.user.User;
 import com.pradipta.reportsuspect.constants.Gender;
 import com.pradipta.reportsuspect.constants.Status;
 import lombok.Data;
@@ -10,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -21,13 +23,8 @@ public class Report implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
-    private String reporterFirstname;
-    private String reporterLastname;
-    private String reporterEmail;
-    @NotNull
-    private String reporterPhonenumber;
-    private String reporterCity;
-    private String reporterZipcode;
+    @ManyToOne
+    private User reporter;
     private String suspectAddess;
     @NotNull
     private String suspectCity;

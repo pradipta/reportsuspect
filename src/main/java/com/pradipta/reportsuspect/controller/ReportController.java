@@ -32,7 +32,7 @@ public class ReportController {
     }
     @CrossOrigin
     @PostMapping("/report")
-    public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap, SecurityContextHolder securityContextHolder) {
+    public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap, SecurityContextHolder securityContextHolder) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         ModelAndView modelAndView = new ModelAndView();

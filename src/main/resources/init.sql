@@ -49,12 +49,6 @@ CREATE TABLE `report` (
   `created_on` datetime DEFAULT NULL,
   `modified_on` datetime DEFAULT NULL,
   `remarks` varchar(255) NOT NULL,
-  `reporter_city` varchar(255) DEFAULT NULL,
-  `reporter_email` varchar(255) DEFAULT NULL,
-  `reporter_firstname` varchar(255) NOT NULL,
-  `reporter_lastname` varchar(255) DEFAULT NULL,
-  `reporter_phonenumber` varchar(255) NOT NULL,
-  `reporter_zipcode` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `suspect_addess` varchar(255) DEFAULT NULL,
   `suspect_city` varchar(255) NOT NULL,
@@ -62,7 +56,9 @@ CREATE TABLE `report` (
   `suspect_name` varchar(255) DEFAULT NULL,
   `suspect_phone_number` varchar(255) DEFAULT NULL,
   `suspect_zipcode` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `reporter_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKndpjl61ubcm2tkf7ml1ynq13t` (`reporter_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,6 +122,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (0,'pradiptasarma@outlook.com','Pradipta','Sarma','$2a$10$heyb6ALQ4q8du31F6MPIQ./11blthrKlOvH0KKGEN4LJRNRM5kbWe','08133910729',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -138,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-28  1:10:34
+-- Dump completed on 2020-03-28  2:13:46

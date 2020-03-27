@@ -60,11 +60,4 @@ public class AuthController {
         modelAndView.setViewName("register");
         return modelAndView;
     }
-//
-//    @GetMapping("/home")
-//    public String home() {
-//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-//
-//        return SecurityContextHolder.getContext().getAuthentication().getName();
-//    }
 }

@@ -4,6 +4,8 @@ import com.pradipta.reportsuspect.auth.models.role.Role;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 @Data
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String firstname;
     private String lastname;

@@ -53,6 +53,7 @@ public class ReportController {
     @CrossOrigin
     @PostMapping("/status/{id}")
     public Report getStatus(@PathVariable("id") Integer id) {
-        return reportHandler.getReport(id);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return reportHandler.getReportByIdAndEmail(id, email);
     }
 }

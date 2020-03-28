@@ -49,4 +49,9 @@ public class ReportHandler {
         }
         return report.get();
     }
+
+    public Report getReportByIdAndEmail(int id, String email) {
+        Report report = getReport(id);
+        return report.getReporter().getEmail().equalsIgnoreCase(email) ? report : null;
+    }
 }

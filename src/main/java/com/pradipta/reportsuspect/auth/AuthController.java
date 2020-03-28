@@ -20,6 +20,11 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @GetMapping
+    public ModelAndView land() {
+        return login();
+    }
+
     @GetMapping("/login")
     public ModelAndView login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

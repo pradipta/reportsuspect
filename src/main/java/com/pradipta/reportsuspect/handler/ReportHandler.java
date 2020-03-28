@@ -39,6 +39,8 @@ public class ReportHandler {
         locationService.saveLocation(location);
         report.setSuspectCurrentLocation(location);
         report.setStatus(Status.PENDING);
+
+        report.setVisitedLocation(reportDto.getVisitedLocation());
         return reportService.saveReport(report);
     }
 
@@ -52,6 +54,8 @@ public class ReportHandler {
 
     public Report getReportByIdAndEmail(int id, String email) {
         Report report = getReport(id);
-        return report.getReporter().getEmail().equalsIgnoreCase(email) ? report : null;
+        if(report == null || !report.getReporter().getEmail().equalsIgnoreCase(email) )
+            return null;
+        return report;
     }
 }

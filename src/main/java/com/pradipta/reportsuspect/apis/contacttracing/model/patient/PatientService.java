@@ -14,6 +14,6 @@ public class PatientService {
         return patientRepository.findById(patientId);
     }
     public Patient addPatient(Patient patient) {
-        patientRepository.save(patient);
+        return patientRepository.save(patient);
     }
 }

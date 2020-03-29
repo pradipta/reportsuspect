@@ -5,8 +5,10 @@ import com.pradipta.reportsuspect.apis.report.model.report.Report;
 import com.pradipta.reportsuspect.apis.report.model.report.ReportHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +26,8 @@ public class ReportController {
     private ReportHandler reportHandler;
     @CrossOrigin
     @GetMapping("/home")
-    public ModelAndView showForm() {
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public ModelAndView showForm(Authentication authentication) {
         ReportDto reportDto = new ReportDto();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("reportDto", reportDto);
@@ -33,7 +36,7 @@ public class ReportController {
     }
     @CrossOrigin
     @PostMapping("/report")
-    @Secured("ADMIN")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ModelAndView report(@Valid ReportDto reportDto, BindingResult result, ModelMap modelMap, SecurityContextHolder securityContextHolder) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
@@ -52,6 +55,7 @@ public class ReportController {
     }
     @CrossOrigin
     @PostMapping("/status/{id}")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public Report getStatus(@PathVariable("id") Integer id) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return reportHandler.getReportByIdAndEmail(id, email);

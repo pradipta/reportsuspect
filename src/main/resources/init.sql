@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.29, for osx10.15 (x86_64)
 --
 -- Host: localhost    Database: reportsuspect
 -- ------------------------------------------------------
--- Server version	8.0.16
+-- Server version	5.7.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,10 +21,10 @@
 
 DROP TABLE IF EXISTS `hibernate_sequence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hibernate_sequence` (
   `next_val` bigint(20) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,13 +43,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `location` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `lat` varchar(255) DEFAULT NULL,
   `lon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `report` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_on` datetime DEFAULT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE `report` (
   PRIMARY KEY (`id`),
   KEY `FKndpjl61ubcm2tkf7ml1ynq13t` (`reporter_id`),
   KEY `FK7ubifku7yeq1ao1k5b3493vvd` (`suspect_current_location_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,13 +100,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `report_visited_location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `report_visited_location` (
   `report_id` int(11) NOT NULL,
   `visited_location_id` bigint(20) NOT NULL,
   KEY `FKoet0nad751n3s0lhr3age4983` (`visited_location_id`),
   KEY `FKjoiqpmym2vs810orh4as5q8lm` (`report_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,13 +124,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
   `id` bigint(20) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) DEFAULT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE `user` (
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKn82ha3ccdebhokx3a8fgdqeyy` (`role_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-29  2:21:37
+-- Dump completed on 2020-03-29 15:07:00

@@ -28,11 +28,11 @@ public class StockHandler {
         return new Stock();
     }
 
-    public Stock getStockById(Integer id) {
-        Optional<Hospital> hospital = hospitalService.getHospitalById(id);
+    public Stock getStockByHospitalId(Integer hospitalId) {
+        Optional<Hospital> hospital = hospitalService.getHospitalById(hospitalId);
         if (!hospital.isPresent()) {
             return null;
         }
-        return stockService.findStockByHospital(hospital.get()).orElse(null);
+        return hospital.get().getStock();
     }
 }

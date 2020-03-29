@@ -22,6 +22,6 @@ public class StockController {
 
     @GetMapping("/getStockByHospital")
     private Stock getStock(@PathVariable("hospitalid") Integer hospitalid) {
-        return stockHandler.getStockById(hospitalid);
+        return stockHandler.getStockByHospitalId(hospitalid);
     }
 }

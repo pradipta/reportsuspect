@@ -24,7 +24,11 @@ public class StockHandler {
     }
 
     private Stock stockFromStockDto(StockDto stockDto) {
-        //TODO pradipta
+        Stock newStock = new Stock();
+        newStock.setBeds(stockDto.getBeds());
+        newStock.setMasks(stockDto.getMasks());
+        newStock.setVaccines(stockDto.getVaccines());
+        newStock.setVentilators(stockDto.getVentilators());
         return new Stock();
     }
 

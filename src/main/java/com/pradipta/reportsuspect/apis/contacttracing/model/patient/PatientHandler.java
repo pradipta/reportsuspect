@@ -14,7 +14,11 @@ public class PatientHandler {
     }
 
     private Patient findPatientFromPatientDto(PatientDto patientDto) {
-        //TODO pradipta
-        return new Patient();
+        Patient patient = new Patient();
+        patient.setAge(patientDto.getAge());
+        patient.setFirstname(patientDto.getFirstname());
+        patient.setGender(patientDto.getGender());
+        patient.setLastname(patientDto.getLastname());
+        return patient;
     }
 }

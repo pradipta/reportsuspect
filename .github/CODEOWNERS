@@ -3,11 +3,11 @@ s is a comment.
 
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-# @pradiptasarma, @ahmednasir will be requested for
+# @pradiptasarma will be requested for
 # review when someone opens a pull request.
 
 *   @pradiptasarma
              @pradiptasarma
 src/         @pradiptasarma
 target/      @pradiptasarma
-
+src          @pradiptasarma

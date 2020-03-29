@@ -95,6 +95,30 @@ LOCK TABLES `report` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `report_visited_location`
+--
+
+DROP TABLE IF EXISTS `report_visited_location`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `report_visited_location` (
+  `report_id` int(11) NOT NULL,
+  `visited_location_id` bigint(20) NOT NULL,
+  KEY `FKoet0nad751n3s0lhr3age4983` (`visited_location_id`),
+  KEY `FKjoiqpmym2vs810orh4as5q8lm` (`report_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `report_visited_location`
+--
+
+LOCK TABLES `report_visited_location` WRITE;
+/*!40000 ALTER TABLE `report_visited_location` DISABLE KEYS */;
+/*!40000 ALTER TABLE `report_visited_location` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `role`
 --
 
@@ -158,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-28 13:48:26
+-- Dump completed on 2020-03-29 15:07:00

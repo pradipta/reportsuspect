@@ -88,13 +88,30 @@
       background-color: blue;
       color: white;
     }
-    .btn-track{
+    .btn-track {
       width: 30%;
       margin-left: 33%;
     }
-    #map {
+    #map_canvas {
       height: 400px; /* The height is 400 pixels */
       width: 100%; /* The width is the width of the web page */
+    }
+    .current-address-row {
+      margin: 0 !important;
+    }
+    .multi-location-card {
+      width: fit-content;
+      padding: 3px;
+      margin: 2px;
+    }
+    .remove-loc {
+      margin: 2px;
+    }
+    .close-btn {
+      margin-top: -5px;
+    }
+    .multi-locs-row {
+      margin: 0px;
     }
   </style>
 </head>
@@ -138,18 +155,18 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 reporter-col">
+            <!-- <div class="col-md-6 reporter-col">
               <div class="form-group">
                 <label for="sAddress">Address: <b>*</b></label>
                 <textarea
-                        type="textarea"
-                        class="form-control"
-                        id="sAddress"
-                        placeholder="Enter address"
-                        name="suspectAddress"
+                  type="textarea"
+                  class="form-control"
+                  id="sAddress"
+                  placeholder="Enter address"
+                  name="suspectAddress"
                 ></textarea>
               </div>
-            </div>
+            </div> -->
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-6">
@@ -226,40 +243,142 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <label>Coordinates: <b>*</b></label>
+
+          <div class="col-md-12">
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group">
-                  <label for="latitude">Latitude: <b>*</b></label>
-                  <input
-                          type="text"
-                          class="form-control"
-                          id="latitude"
-                          name="suspectLocationLongitude"
-                          required
-                          readonly
-                  />
+                <div class="row current-address-row">
+                  <button
+                          type="button"
+                          class="btn btn-primary modal-activate-button"
+                          data-toggle="modal"
+                          data-target="#myModal"
+                  >
+                    Enter current location
+                  </button>
+                </div>
+                <div class="row current-address-row">
+                  <div
+                          class="form-group curAddress-form-group"
+                          style="width: 100%"
+                  >
+                    <label for="curAddress">Address:</label>
+                    <textarea
+                            type="text"
+                            class="form-control"
+                            id="curAddress"
+                            name="suspectAddress"
+                            readonly
+                    ></textarea>
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="form-group">
-                  <label for="longitude">Longitude: <b>*</b></label>
-                  <input
-                          type="text"
-                          class="form-control"
-                          id="longitude"
-                          name="suspectLocationLatitude"
-                          required
-                          readonly
-                  />
+                <div class="row past-address-row">
+                  <button
+                          type="button"
+                          class="btn btn-primary modal-activate-past"
+                          data-toggle="modal"
+                          data-target="#myModal"
+                  >
+                    Enter past visited locations
+                  </button>
+                </div>
+                <div class="row current-address-row">
+                  <div
+                          class="form-group pastAddress-form-group"
+                          style="width: 100%"
+                  >
+                    <label for="pastAddress">Places visited:</label>
+                    <textarea
+                            type="text"
+                            class="form-control"
+                            id="pastAddress"
+                            name="address"
+                            readonly
+                    ></textarea>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="card map-card" id="map"></div>
+          <!-- The Modal -->
+          <div class="modal" id="myModal" style="z-index: 1111 !important">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="col-md-12">
+                    <div class="control-group">
+                      <div class="form-group">
+                        <label class="control-label" for="keyword"
+                        >Enter current location :</label
+                        >
+                        <div class="form-group">
+                          <input
+                                  type="hidden"
+                                  class="form-control"
+                                  id="multi-location-input"
+                                  name="visitedPLaces"
+                                  data-role="tagsinput"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <div class="locations">
+                            <div
+                                    class="row multi-location-row"
+                                    style="margin: 0 !important"
+                            ></div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <input
+                                  type="hidden"
+                                  class="form-control"
+                                  id="latitude"
+                                  name="suspectLocationLatitude"
+                                  readonly
+                          />
+                        </div>
+                        <div class="form-group">
+                          <input
+                                  type="hidden"
+                                  class="form-control"
+                                  id="longitude"
+                                  name="suspectLocationLongitude"
+                                  readonly
+                          />
+                        </div>
+                        <div class="controls">
+                          <input
+                                  type="text"
+                                  class="span6"
+                                  name="keyword"
+                                  id="keyword"
+                                  style="width: 100%"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div id="map_canvas"></div>
+                  </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button
+                          type="button"
+                          class="btn btn-danger"
+                          data-dismiss="modal"
+                          id="saveLocation"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="row submit-btn-row">
             <button
                     type="submit"
@@ -338,8 +457,14 @@
 </div>
 </body>
 <script>
+  let multiLocArray = [];
+  let locations = [];
+  let ids = [];
+  let multSelect = false;
   $(document).ready(function() {
     $(".track-main-row").hide();
+    $(".locations").hide();
+    $(".curAddress-form-group").hide();
     $(".track-button").css("background-color", "#cccccc");
     $(this).css("background-color", "blue");
     $("#same-person-checkbox").click(function() {
@@ -412,42 +537,165 @@
         });
       }
     });
+    let curLat = 0.0;
+    let curLng = 0.0;
+    var map;
 
-    function initMap() {
-      navigator.geolocation.getCurrentPosition(
-              p => {
-                $("#latitude").val(p.coords.latitude);
-                $("#longitude").val(p.coords.longitude);
-                var uluru = { lat: p.coords.latitude, lng: p.coords.longitude };
+    function initMap(lat, lng, ele) {
+      $("#latitude").val(lat.toFixed(7));
+      $("#longitude").val(lng.toFixed(7));
+      curLat = lat.toFixed(7);
+      curLng = lng.toFixed(7);
+      var map_options = {
+        center: new google.maps.LatLng(lat, lng),
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
 
-                var map = new google.maps.Map(document.getElementById("map"), {
-                  zoom: 14,
-                  center: uluru
-                });
+      map = new google.maps.Map(document.getElementById(ele), map_options);
 
-                var marker = new google.maps.Marker({
-                  position: uluru,
-                  map: map
-                });
+      var input = document.getElementById("keyword");
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo("bounds", map);
 
-                google.maps.event.addListener(map, "center_changed", function() {
+      var marker = new google.maps.Marker({
+        map: map,
+        position: { lat: lat, lng: lng }
+      });
 
-                  window.setTimeout(function() {
-                    var center = map.getCenter();
-                    marker.setPosition(center);
-                    $('#latitude').val(center.lat().toFixed(7))
-                    $('#longitude').val(center.lng().toFixed(7));
+      google.maps.event.addListener(
+              autocomplete,
+              "place_changed",
+              function() {
+                var place = autocomplete.getPlace();
+                if (multSelect) {
+                  addTag(place.address_components[0].short_name, place);
+                }
+                if (place.geometry.viewport) {
+                  map.fitBounds(place.geometry.viewport);
+                } else {
+                  map.setCenter(place.geometry.location);
+                  map.setZoom(15);
+                }
 
-                  }, 100);
-                });
+                marker.setPosition(place.geometry.location);
+              }
+      );
 
-              },
-              err => {
-                console.log(err);
+      google.maps.event.addListener(map, "center_changed", function() {
+        window.setTimeout(function() {
+          var center = map.getCenter();
+          marker.setPosition(center);
+          console.log(center.lat(), center.lng());
+          curLat = center.lat().toFixed(7);
+          curLng = center.lng().toFixed(7);
+          $("#latitude").val(center.lat().toFixed(7));
+          $("#longitude").val(center.lng().toFixed(7));
+        }, 100);
+      });
+
+      google.maps.event.addListener(map, "click", function(event) {
+        marker.setPosition(event.latLng);
+      });
+    }
+
+    function addTag(tag, place) {
+      console.log(
+              place.geometry.location.lat(),
+              place.geometry.location.lng()
+      );
+
+      let id = tag.replace(" ", "");
+      let ele =
+              '<div class="card multi-location-card" id="card-' +
+              id +
+              '"><div class="row multi-locs-row"><div class="multi-locs">' +
+              tag +
+              '</div><div class="remove-loc"><img src="./close-icon.svg" id="' +
+              id +
+              '" class="close-btn" onclick="removeTag(this.id)" /></div></div></div>';
+      $(".multi-location-row").append(ele);
+
+      multiLocArray.push({
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+        id: id
+      });
+      ids.push(id);
+    }
+
+    function geoCode() {
+      var geocoder = new google.maps.Geocoder();
+      console.log(curLat, curLng);
+      geocoder.geocode(
+              { location: { lat: parseFloat(curLat), lng: parseFloat(curLng) } },
+              function(results, status) {
+                if (status === "OK" && !multSelect) {
+                  $(".curAddress-form-group").show();
+                  if (results[0]) {
+                    console.log(results[0]);
+
+                    $("#curAddress").val(results[0].formatted_address);
+                  }
+                }
               }
       );
     }
-    initMap();
+    $("#saveLocation").click(function() {
+      debugger;
+      console.log(multiLocArray, ids);
+      $("#pastAddress").val(ids);
+      $("#multi-location-input").val(JSON.stringify(multiLocArray));
+      geoCode();
+    });
+
+    $(".close-btn").click(function() {
+      console.log($(this).id);
+    });
+
+    $(".modal-activate-button").click(function() {
+      $(".locations").hide();
+      multSelect = false;
+      document.getElementById("map_canvas").style.display = "block";
+      if (curLat) {
+        initMap(curLat, curLng, "map_canvas");
+      } else {
+        navigator.geolocation.getCurrentPosition(p => {
+          initMap(p.coords.latitude, p.coords.longitude, "map_canvas");
+        });
+      }
+    });
+    $(".modal-activate-past").click(function() {
+      $(".locations").show();
+      multSelect = true;
+      document.getElementById("map_canvas").style.display = "none";
+      if (curLat) {
+        initMap(curLat, curLng, "map_canvas");
+      } else {
+        navigator.geolocation.getCurrentPosition(p => {
+          initMap(p.coords.latitude, p.coords.longitude, "map_canvas");
+        });
+      }
+    });
   });
+  function removeTag(id) {
+    document.getElementById("card-" + id).remove();
+    multiLocArray = multiLocArray.filter(i => i.id !== id);
+    var index = ids.indexOf(id);
+
+    if (index !== -1) ids.splice(index, 1);
+  }
 </script>
+<style>
+  .pac-container {
+    background-color: #FFF;
+    z-index: 2000000 !important;
+    position: fixed;
+    display: inline-block;
+  }
+
+  .modal-backdrop{
+    z-index: 10;
+  }​
+</style>
 </html>

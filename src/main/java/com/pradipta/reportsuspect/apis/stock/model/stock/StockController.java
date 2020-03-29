@@ -24,6 +24,4 @@ public class StockController {
     private Stock getStock(@PathVariable("hospitalid") Integer hospitalid) {
         return stockHandler.getStockById(hospitalid);
     }
-
-    //TODO PUT apis for Stock
 }

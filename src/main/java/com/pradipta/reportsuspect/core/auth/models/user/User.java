@@ -1,5 +1,6 @@
 package com.pradipta.reportsuspect.core.auth.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pradipta.reportsuspect.core.auth.models.role.Role;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 @Data

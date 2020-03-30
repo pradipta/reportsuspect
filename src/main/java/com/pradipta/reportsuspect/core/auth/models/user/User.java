@@ -1,5 +1,6 @@
 package com.pradipta.reportsuspect.core.auth.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pradipta.reportsuspect.core.auth.models.role.Role;
 import lombok.Data;
 
@@ -20,7 +21,6 @@ public class User {
     private String lastname;
     private String phonenumber;
     private String email;
-    @Transient
     private String password;
     @ManyToOne
     private Role role;

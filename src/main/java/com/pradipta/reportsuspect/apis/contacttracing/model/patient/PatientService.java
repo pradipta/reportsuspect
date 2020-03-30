@@ -16,4 +16,9 @@ public class PatientService {
     public Patient addPatient(Patient patient) {
         return patientRepository.save(patient);
     }
+
+    public Patient merge(Patient patient) {
+        Long id = patient.getId();
+        return patientRepository.saveAndFlush(patient);
+    }
 }

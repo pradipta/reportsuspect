@@ -243,7 +243,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (0,'Everything Stuff','ADMIN'),(1,'Operator','USER');
+INSERT INTO `role` VALUES (0,'Everything Stuff','ADMIN'),(1,'Operator','USER'),(2,'Hospital User','HOSPITAL'),(3,'Contact Handler','CONTACTHANDLER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-29 22:25:25
+-- Dump completed on 2020-03-30 16:43:01

@@ -1,0 +1,39 @@
+body {
+    background-color: #36485e;
+}
+.container {
+    padding-top: 1%;
+}
+.patient-form-card {
+    padding: 2rem;
+}
+.row {
+    margin: 0 !important;
+}
+.contact-super-card-header {
+    margin: 1rem 0;
+}
+.add-contact-content-row {
+    width: 100%;
+}
+.contact-card {
+    width: 100%;
+    margin: 1rem;
+}
+.contact-form-group {
+    width: 95%;
+}
+
+.add-contact-btn-row {
+    padding: 1rem;
+}
+
+#cAddress {
+    height: 10rem;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    border-color: #ced4da;
+    background-image: url("");
+}

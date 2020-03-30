@@ -19,6 +19,7 @@ public class PatientHandler {
         patient.setFirstname(patientDto.getFirstname());
         patient.setGender(patientDto.getGender());
         patient.setLastname(patientDto.getLastname());
+        patient.setContactedPeople(patientDto.getContacts());
         return patient;
     }
 }

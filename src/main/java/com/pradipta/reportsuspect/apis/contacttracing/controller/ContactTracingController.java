@@ -29,6 +29,7 @@ public class ContactTracingController {
 
     @PostMapping("/addPatient")
     public Patient addPatient(@RequestBody PatientDto patientDto) {
+        System.out.println(patientDto);
         System.out.println("Pasgdjkasd");
         return patientHandler.savePatientFromPatientDto(patientDto);
     }

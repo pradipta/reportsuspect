@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Patient Info</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div class="container">
+    <div class="card patient-form-card">
+        <h2>Form Validation</h2>
+
+        <form id="form" onsubmit="return submitForm();" class="was-validated">
+            <div class="card patient-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fName">First Name:</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="fName"
+                                    placeholder="Enter first name"
+                                    name="firstname"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lName">Last Name:</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="lName"
+                                    placeholder="Enter last name"
+                                    name="lastname"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="phone">Phone number:</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="phone"
+                                    placeholder="Enter phone number"
+                                    name="phonenumber"
+                                    maxlength="10"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="sGender">Gender: <b>*</b></label>
+                            <select class="form-control" id="sGender" name="gender">
+                                <option>MALE</option>
+                                <option>FEMALE</option>
+                                <option>OTHER</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="age"
+                                    placeholder="Enter age"
+                                    name="age"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header contact-super-card-header">
+                Contacts
+            </div>
+            <div class="add-contact-row row">
+                <div class="add-contact-content-row row">
+                    <!-- <div class="card contact-card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="row">
+                              <div class="form-group contact-form-group">
+                                <label for="fName">First name:</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="fName"
+                                  placeholder="Enter first name"
+                                  name="firstname"
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group contact-form-group">
+                                <label for="lName">Last name:</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="lName"
+                                  placeholder="Enter last name"
+                                  name="lastname"
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group contact-form-group">
+                                <label for="cPhone">Phone number:</label>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="cPhone"
+                                  placeholder="Enter phone number"
+                                  name="phonenumber"
+                                  maxlength="10"
+                                  required
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="row">
+                              <div class="form-group contact-form-group">
+                                <label for="cAddress">Address</label>
+                                <textarea
+                                  type="text"
+                                  class="form-control"
+                                  id="cAddress"
+                                  placeholder="Enter address"
+                                  name="cAddress"
+                                  required
+                                ></textarea>
+                              </div>
+                            </div>
+
+                            <div class="row remove-cntct-row">
+                                <button type="submit" class="btn remove-contact-btn btn-danger">
+                                    Delete Entry
+                                  </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                </div>
+                <div class="add-contact-btn-row row">
+                    <button class="btn btn-primary add-contact-btn">
+                        Add Contact
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn submit-button btn-primary">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    let submitForm = () => {
+        return false;
+    };
+    let contactCardCounter = 0;
+    $(document).ready(() => {
+        $(".contact-super-card-header").hide();
+        $(".submit-button").click(function() {
+            debugger;
+            let patientResponse = $("#form").serializeArray();
+            let contactResponseTemp = Array();
+            if (patientResponse.length > 5) {
+                let contactResponse = patientResponse.slice(
+                    5,
+                    patientResponse.length
+                );
+                patientResponse = patientResponse.slice(0, 4);
+                let contactResponseTemp = Array();
+                for (let i = 0; i < contactResponse.length / 4; i++) {
+                    contactResponseTemp.push([
+                        contactResponse[i],
+                        contactResponse[i + 1],
+                        contactResponse[i + 2],
+                        contactResponse[i + 3]
+                    ]);
+                }
+            }
+            patientResponse.push({
+                name: "contacts",
+                value: contactResponseTemp
+            });
+            console.log(patientResponse);
+            $.ajax({
+                url: "/addPatient",
+                method: "POST",
+                data: patientResponse,
+                success: data => {
+                    console.log(data);
+                },
+                error: err => {
+                    console.log(err);
+                }
+            });
+        });
+
+        $(".add-contact-btn").click(function() {
+            let ele =
+                '<div class="card contact-card" id="card-' +
+                contactCardCounter +
+                '"> <div class="card-body"> <div class="row"> <div class="col-md-6"> <div class="row"> <div class="form-group contact-form-group"> <label for="fName">First name:</label> <input type="text" class="form-control" id="fName" placeholder="Enter first name" name="firstname" required/> </div></div><div class="row"> <div class="form-group contact-form-group"> <label for="lName">Last name:</label> <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lastname" required/> </div></div><div class="row"> <div class="form-group contact-form-group"> <label for="cPhone">Phone number:</label> <input type="number" class="form-control" id="cPhone" placeholder="Enter phone number" name="phonenumber" maxlength="10" required/> </div></div></div><div class="col-md-6"> <div class="row"> <div class="form-group contact-form-group"> <label for="cAddress">Address</label> <textarea type="text" class="form-control" id="cAddress" placeholder="Enter address" name="address" required ></textarea> </div></div><div class="row remove-cntct-row"> <button class="btn remove-contact-btn btn-danger" id="' +
+                contactCardCounter +
+                '" onclick="removeCard(this.id)"> Delete Entry </button> </div></div></div></div></div>';
+            $(".contact-super-card-header").show();
+            $(".add-contact-content-row").append(ele);
+            contactCardCounter++;
+        });
+    });
+    function removeCard(id) {
+        console.log(id);
+        document.getElementById("card-" + id).remove();
+    }
+</script>
+</html>

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ public class User {
     private String lastname;
     private String phonenumber;
     private String email;
+    @Transient
     private String password;
     @ManyToOne
     private Role role;

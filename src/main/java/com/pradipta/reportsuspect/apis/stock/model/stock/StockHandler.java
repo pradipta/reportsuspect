@@ -18,9 +18,9 @@ public class StockHandler {
     @Autowired
     private HospitalService hospitalService;
 
-    public Stock addStockByStockDto(StockDto stockDto) {
+    public Stock updateStockByStockDto(StockDto stockDto, Integer hospitalId) {
         Stock stock = stockFromStockDto(stockDto);
-        return stockService.addStock(stock);
+        return stockService.updateStock(stock, hospitalId);
     }
 
     private Stock stockFromStockDto(StockDto stockDto) {

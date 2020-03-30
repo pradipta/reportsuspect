@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Patient Info</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="container">
+    <div class="card patient-form-card">
+        <h2>Form Validation</h2>
+
+        <form id="form" onsubmit="return submitForm();" class="was-validated">
+            <div class="card patient-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fName">Masks:</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="fName"
+                                    placeholder="Enter number of masks"
+                                    name="masks"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lName">Vaccines</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="lName"
+                                    placeholder="Enter last name"
+                                    name="vaccines"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone">Ventilators</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="phone"
+                                    placeholder="Enter number of ventilators"
+                                    name="ventilators"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone">Beds:</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="phone"
+                                    placeholder="Enter phone number"
+                                    name="beds"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn submit-button btn-primary">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    let submitForm = () => {
+        return false;
+    };
+    let contactCardCounter = 0;
+    $(document).ready(() => {
+        $(".contact-super-card-header").hide();
+        $(".submit-button").click(function() {
+            $.ajax({
+                url: "/addPatient",
+                method: "POST",
+                data: $("#form").serializeArray(),
+                success: data => {
+                    console.log(data);
+                },
+                error: err => {
+                    console.log(err);
+                }
+            });
+        });
+    });
+</script>
+</html>

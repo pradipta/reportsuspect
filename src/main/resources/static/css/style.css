@@ -1,39 +1,72 @@
 body {
-    background-color: #36485e;
+  background-color: #36485e;
 }
 .container {
-    padding-top: 1%;
+  padding-top: 1%;
 }
 .patient-form-card {
-    padding: 2rem;
+  padding: 2rem;
 }
 .row {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 .contact-super-card-header {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 .add-contact-content-row {
-    width: 100%;
+  width: 100%;
 }
 .contact-card {
-    width: 100%;
-    margin: 1rem;
+  width: 100%;
+  margin: 1rem;
 }
 .contact-form-group {
-    width: 95%;
+  width: 95%;
 }
 
 .add-contact-btn-row {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 #cAddress {
-    height: 10rem;
+  height: 10rem;
 }
 
 .form-control.is-invalid,
 .was-validated .form-control:invalid {
-    border-color: #ced4da;
-    background-image: url("");
+  border-color: #ced4da;
+  background-image: url("");
+}
+
+.segment-col{
+  padding: 0px;
+}
+
+.segment-button{
+  width: calc(100% - 10px);
+  margin: 5px;
+  background-color: #36485e;
+  color: #ffffff;
+}
+
+.add-hospital-btn{
+  margin: 1rem;
+}
+#stock-card{
+  margin-top: 1rem;
+}
+
+.add-stock-submit{
+  margin: 1rem;
+}
+.edit-stock-form{
+  margin: 1rem;
+}
+
+.hospital-get-row{
+  padding: 1.5rem;
+}
+
+.stock-add-card{
+  padding: 1rem;
 }

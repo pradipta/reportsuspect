@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Patient Info</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="container">
+    <div class="card hospital-add-card">
+        <div class="card-header">Add Hospital</div>
+        <div class="card-body add-hospital-super">
+            <form
+                    id="add-hospital-form"
+                    onsubmit="return submitForm()"
+                    class="was-validated"
+            >
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="hName">Hospital name:</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="hName"
+                                    placeholder="Enter hospital name"
+                                    name="name"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="hCity">City:</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="hCity"
+                                    placeholder="Enter city"
+                                    name="city"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="hState">State:</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="hState"
+                                    placeholder="Enter hospital name"
+                                    name="state"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary add-hospital-btn">
+                    Add Hospital
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card stock-card" id="stock-card">
+        <div class="card-header">
+            Add Stocks
+        </div>
+
+        <form id="form" onsubmit="return submitForm();" class="was-validated">
+            <div class="card patient-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="masks">Masks:</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="masks"
+                                    placeholder="Enter number of masks"
+                                    name="masks"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="vaccines">Vaccines</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vaccines"
+                                    placeholder="Enter number of vaccines"
+                                    name="vaccines"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ventilators">Ventilators</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="ventilators"
+                                    placeholder="Enter number of ventilators"
+                                    name="ventilators"
+                                    required
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="beds">Beds:</label>
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    id="beds"
+                                    placeholder="Enter number of beds"
+                                    name="beds"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn add-stock-submit btn-primary">
+                Add Stock
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    let submitForm = () => {
+      return false;
+    };
+    $(document).ready(() => {
+      let hospitalId = "";
+      $("#stock-card").hide();
+
+      $(".add-hospital-btn").click(() => {
+        let objArr = $("#add-hospital-form").serializeArray();
+        let obj = {};
+        objArr.forEach(val => {
+          obj[val.name] = val.value;
+        });
+        // let obj = {
+        //   name: objArr[0].value,
+        //   city: objArr[1].value,
+        //   state: objArr[2].value
+        // };
+        //addHospital
+        $.ajax({
+          url: "/hospital/addHospital",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(obj),
+          dataType: "json",
+          success: data => {
+            $("#form").fadeIn(200);
+
+            console.log(data);
+            hospitalId = data.id;
+            $("#stock-card").fadeIn(500);
+            $(".hospital-add-card").hide();
+          },
+          error: err => {
+            alert("No hospital found by this id");
+
+            console.log(err);
+          }
+        });
+      });
+
+      $(".add-stock-submit").click(() => {
+        let objArr = $("#form").serializeArray();
+        let obj = {};
+        objArr.forEach(val => {
+          obj[val.name] = val.value;
+        });
+
+        //addHospital
+        $.ajax({
+          url: `/stock/${hospitalId}/updateStock`,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(obj),
+          dataType: "json",
+          success: data => {
+            alert("Updated");
+            console.log(data);
+          },
+          error: err => {
+            alert("No hospital found by this id");
+            console.log(err);
+          }
+        });
+      });
+    });
+  </script>
+</html>

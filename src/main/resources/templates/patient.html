@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <title>Patient Info</title>
     <meta charset="utf-8" />
@@ -178,64 +182,69 @@
 </body>
 <script>
     let submitForm = () => {
-        return false;
+      return false;
     };
     let contactCardCounter = 0;
     $(document).ready(() => {
-        $(".contact-super-card-header").hide();
-        $(".submit-button").click(function() {
-            debugger;
-            let patientResponse = $("#form").serializeArray();
-            let contactResponseTemp = Array();
-            if (patientResponse.length > 5) {
-                let contactResponse = patientResponse.slice(
-                    5,
-                    patientResponse.length
-                );
-                patientResponse = patientResponse.slice(0, 4);
-                let contactResponseTemp = Array();
-                for (let i = 0; i < contactResponse.length / 4; i++) {
-                    contactResponseTemp.push([
-                        contactResponse[i],
-                        contactResponse[i + 1],
-                        contactResponse[i + 2],
-                        contactResponse[i + 3]
-                    ]);
-                }
-            }
-            patientResponse.push({
-                name: "contacts",
-                value: contactResponseTemp
-            });
-            console.log(patientResponse);
-            $.ajax({
-                url: "/addPatient",
-                method: "POST",
-                data: patientResponse,
-                success: data => {
-                    console.log(data);
-                },
-                error: err => {
-                    console.log(err);
-                }
-            });
-        });
+      $(".contact-super-card-header").hide();
+      $(".submit-button").click(function() {
+        debugger;
+        let patientResponse = $("#form").serializeArray();
+        let contactResponseTemp = Array();
+        if (patientResponse.length > 5) {
+          let contactResponse = patientResponse.slice(
+            5,
+            patientResponse.length
+          );
+          patientResponse = patientResponse.slice(0, 4);
 
-        $(".add-contact-btn").click(function() {
-            let ele =
-                '<div class="card contact-card" id="card-' +
-                contactCardCounter +
-                '"> <div class="card-body"> <div class="row"> <div class="col-md-6"> <div class="row"> <div class="form-group contact-form-group"> <label for="fName">First name:</label> <input type="text" class="form-control" id="fName" placeholder="Enter first name" name="firstname" required/> </div></div><div class="row"> <div class="form-group contact-form-group"> <label for="lName">Last name:</label> <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lastname" required/> </div></div><div class="row"> <div class="form-group contact-form-group"> <label for="cPhone">Phone number:</label> <input type="number" class="form-control" id="cPhone" placeholder="Enter phone number" name="phonenumber" maxlength="10" required/> </div></div></div><div class="col-md-6"> <div class="row"> <div class="form-group contact-form-group"> <label for="cAddress">Address</label> <textarea type="text" class="form-control" id="cAddress" placeholder="Enter address" name="address" required ></textarea> </div></div><div class="row remove-cntct-row"> <button class="btn remove-contact-btn btn-danger" id="' +
-                contactCardCounter +
-                '" onclick="removeCard(this.id)"> Delete Entry </button> </div></div></div></div></div>';
-            $(".contact-super-card-header").show();
-            $(".add-contact-content-row").append(ele);
-            contactCardCounter++;
+          for (let i = 0; i < contactResponse.length / 4; i++) {
+            contactResponseTemp.push([
+              contactResponse[i],
+              contactResponse[i + 1],
+              contactResponse[i + 2],
+              contactResponse[i + 3]
+            ]);
+          }
+        }
+        contactResponseTemp = JSON.stringify(contactResponseTemp)
+        patientResponse.push({
+          name: "contacts",
+          value: contactResponseTemp
         });
+        console.log(patientResponse);
+        $.ajax({
+          url: "/addPatient",
+          headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+          method: "POST",
+          data: JSON.stringify(patientResponse),
+          dataType: 'json',
+          success: data => {
+            console.log(data);
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+      });
+
+      $(".add-contact-btn").click(function() {
+        let ele =
+          '<div class="card contact-card" id="card-' +
+          contactCardCounter +
+          '"> <div class="card-body"> <div class="row"> <div class="col-md-6"> <div class="row"> <div class="form-group contact-form-group"> <label for="fName">First name:</label> <input type="text" class="form-control" id="fName" placeholder="Enter first name" name="firstname" required/> </div></div><div class="row"> <div class="form-group contact-form-group"> <label for="lName">Last name:</label> <input type="text" class="form-control" id="lName" placeholder="Enter last name" name="lastname" required/> </div></div><div class="row"> <div class="form-group contact-form-group"> <label for="cPhone">Phone number:</label> <input type="number" class="form-control" id="cPhone" placeholder="Enter phone number" name="phonenumber" maxlength="10" required/> </div></div></div><div class="col-md-6"> <div class="row"> <div class="form-group contact-form-group"> <label for="cAddress">Address</label> <textarea type="text" class="form-control" id="cAddress" placeholder="Enter address" name="address" required ></textarea> </div></div><div class="row remove-cntct-row"> <button class="btn remove-contact-btn btn-danger" id="' +
+          contactCardCounter +
+          '" onclick="removeCard(this.id)"> Delete Entry </button> </div></div></div></div></div>';
+        $(".contact-super-card-header").show();
+        $(".add-contact-content-row").append(ele);
+        contactCardCounter++;
+      });
     });
     function removeCard(id) {
-        console.log(id);
-        document.getElementById("card-" + id).remove();
+      document.getElementById("card-" + id).remove();
     }
-</script>
+  </script>
 </html>

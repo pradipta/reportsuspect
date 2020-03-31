@@ -154,33 +154,61 @@
 
       $(".add-hospital-btn").click(() => {
         let objArr = $("#add-hospital-form").serializeArray();
-        let obj = {
-            name: objArr[0].value,
-            city:objArr[1].value,
-            state:objArr[2].value
-        }
+        let obj = {};
+        objArr.forEach(val => {
+          obj[val.name] = val.value;
+        });
+        // let obj = {
+        //   name: objArr[0].value,
+        //   city: objArr[1].value,
+        //   state: objArr[2].value
+        // };
         //addHospital
-        debugger;
         $.ajax({
           url: "/hospital/addHospital",
           method: "POST",
           contentType: "application/json",
-          data:  JSON.stringify(obj),
+          data: JSON.stringify(obj),
           dataType: "json",
           success: data => {
-            $("#form").fadeIn(200)
+            $("#form").fadeIn(200);
 
             console.log(data);
-            $("#stock-card").fadeIn(500)
+            hospitalId = data.id;
+            $("#stock-card").fadeIn(500);
             $(".hospital-add-card").hide();
           },
           error: err => {
-            alert("No hospital found by this id")
+            alert("No hospital found by this id");
 
             console.log(err);
           }
         });
+      });
 
+      $(".add-stock-submit").click(() => {
+        let objArr = $("#form").serializeArray();
+        let obj = {};
+        objArr.forEach(val => {
+          obj[val.name] = val.value;
+        });
+
+        //addHospital
+        $.ajax({
+          url: `/stock/${hospitalId}/updateStock`,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(obj),
+          dataType: "json",
+          success: data => {
+            alert("Updated");
+            console.log(data);
+          },
+          error: err => {
+            alert("No hospital found by this id");
+            console.log(err);
+          }
+        });
       });
     });
   </script>

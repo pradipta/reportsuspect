@@ -29,7 +29,7 @@ public class StockHandler {
         newStock.setMasks(stockDto.getMasks());
         newStock.setVaccines(stockDto.getVaccines());
         newStock.setVentilators(stockDto.getVentilators());
-        return new Stock();
+        return newStock;
     }
 
     public Stock getStockByHospitalId(Integer hospitalId) {

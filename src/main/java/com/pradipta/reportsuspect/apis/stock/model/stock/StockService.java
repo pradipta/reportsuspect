@@ -5,6 +5,8 @@ import com.pradipta.reportsuspect.apis.stock.model.hospital.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +24,10 @@ public class StockService {
         if (!hospitalOptional.isPresent()) {
             return null;
         }
+        if (hospitalOptional.get().getStock().isEmpty()) {
+            return stockRepository.save(stock);
+        }
         stock.setId(hospitalOptional.get().getStock().getId());
-        return stockRepository.saveAndFlush(stock);
+        return stockRepository.save(stock);
     }
 }

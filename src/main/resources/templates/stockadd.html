@@ -120,9 +120,8 @@
       $(".get-hospital").click(function() {
         console.log($("#hId").val())
         $.ajax({
-          url: "/getHospital",
-          method: "POST",
-          data: $("#form").serializeArray(),
+          url: "/getStockByHospital/"+$("#hId").val(),
+          method: "GET",
           success: data => {
             $("#form").fadeIn(200)
             console.log(data);

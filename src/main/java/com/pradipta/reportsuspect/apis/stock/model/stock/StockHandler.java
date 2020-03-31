@@ -20,7 +20,7 @@ public class StockHandler {
 
     public Stock updateStockByStockDto(StockDto stockDto, Integer hospitalId) {
         Stock stock = stockFromStockDto(stockDto);
-        return stockService.updateStock(stock, hospitalId);
+        return stockService.updateStock(stockDto, hospitalId);
     }
 
     private Stock stockFromStockDto(StockDto stockDto) {

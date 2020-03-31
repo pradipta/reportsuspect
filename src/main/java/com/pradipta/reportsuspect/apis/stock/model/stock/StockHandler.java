@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component
 public class StockHandler {
@@ -20,7 +18,7 @@ public class StockHandler {
 
     public Stock updateStockByStockDto(StockDto stockDto, Integer hospitalId) {
         Stock stock = stockFromStockDto(stockDto);
-        return stockService.updateStock(stockDto, hospitalId);
+        return stockService.updateStock(stock, hospitalId);
     }
 
     private Stock stockFromStockDto(StockDto stockDto) {

@@ -1,6 +1,5 @@
 package com.pradipta.reportsuspect.apis.stock.controller;
 
-import com.pradipta.reportsuspect.apis.report.dto.ReportDto;
 import com.pradipta.reportsuspect.apis.stock.dto.HospitalDto;
 import com.pradipta.reportsuspect.apis.stock.model.hospital.Hospital;
 import com.pradipta.reportsuspect.apis.stock.model.hospital.HospitalHandler;

@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 <div class="container">
@@ -153,13 +153,20 @@
       $("#stock-card").hide();
 
       $(".add-hospital-btn").click(() => {
-        console.log($("#add-hospital-form").serializeArray());
+        let objArr = $("#add-hospital-form").serializeArray();
+        let obj = {
+            name: objArr[0].value,
+            city:objArr[1].value,
+            state:objArr[2].value
+        }
         //addHospital
         debugger;
         $.ajax({
-          url: "/addHospital",
+          url: "/hospital/addHospital",
           method: "POST",
-          data: $("#form").serializeArray(),
+          contentType: "application/json",
+          data:  JSON.stringify(obj),
+          dataType: "json",
           success: data => {
             $("#form").fadeIn(200)
 

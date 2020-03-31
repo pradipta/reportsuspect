@@ -20,7 +20,7 @@ public class HospitalHandler {
         hospital.setCity(hospitalDto.getCity());
         hospital.setName(hospitalDto.getName());
         hospital.setState(hospitalDto.getState());
-        return new Hospital();
+        return hospital;
     }
 
     public Hospital getHospitalById(Integer id) {

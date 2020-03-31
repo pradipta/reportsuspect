@@ -5,6 +5,7 @@ import com.pradipta.reportsuspect.apis.contacttracing.model.contact.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class PatientHandler {
         patient.setFirstname(patientDto.getFirstname());
         patient.setGender(patientDto.getGender());
         patient.setLastname(patientDto.getLastname());
-        patient.setContactedPeople(patientDto.getContacts());
+        patient.setContactedPeople(new ArrayList<>());
         return patient;
     }
 
@@ -34,8 +35,6 @@ public class PatientHandler {
         }
         Patient patient = patientOp.get();
         List<Contact> contacts = patientOp.get().getContactedPeople();
-        contacts.addAll(newContacts);
-        patientOp.get().setContactedPeople(contacts);
-        return patientService.merge(patient);
+        return patientService.addPatient(patient);
     }
 }

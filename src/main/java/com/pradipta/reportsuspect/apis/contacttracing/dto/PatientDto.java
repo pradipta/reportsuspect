@@ -13,7 +13,5 @@ public class PatientDto {
     private String lastname;
     private String phonenumber;
     private Gender gender;
-    private List<Contact> contacts = new ArrayList<>();
     private int age;
-
 }

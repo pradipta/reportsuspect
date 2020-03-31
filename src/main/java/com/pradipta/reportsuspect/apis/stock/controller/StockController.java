@@ -17,9 +17,9 @@ public class StockController {
     @Autowired
     private StockHandler stockHandler;
 
-    @PostMapping("/addNewStock")
-    private Stock addStock(@RequestBody StockDto stockDto) {
-        return stockHandler.addStockByStockDto(stockDto);
+    @PostMapping("/{hospitalId}/updateStock")
+    private Stock updateStock(@RequestBody StockDto stockDto, @PathVariable("hospitalId") Integer hospitalId) {
+        return stockHandler.updateStockByStockDto(stockDto, hospitalId);
     }
 
     @GetMapping("/getStockByHospital")

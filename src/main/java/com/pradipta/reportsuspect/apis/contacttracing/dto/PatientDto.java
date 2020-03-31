@@ -15,4 +15,5 @@ public class PatientDto {
     private Gender gender;
     private List<Contact> contacts = new ArrayList<>();
     private int age;
+
 }

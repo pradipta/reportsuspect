@@ -1,5 +1,6 @@
 package com.pradipta.reportsuspect.apis.stock.model.stock;
 
+import com.pradipta.reportsuspect.apis.stock.dto.StockDto;
 import com.pradipta.reportsuspect.apis.stock.model.hospital.Hospital;
 import com.pradipta.reportsuspect.apis.stock.model.hospital.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ public class StockService {
         return stockRepository.save(stock);
     }
 
-    public Stock updateStock(Stock stock, Integer hospitalId) {
+    public Stock updateStock(StockDto stockDto, Integer hospitalId) {
         Optional<Hospital> hospitalOptional = hospitalService.getHospitalById(hospitalId);
         if (!hospitalOptional.isPresent()) {
             return null;
         }
-        stock.setId(hospitalOptional.get().getStock().getId());
-        return stockRepository.saveAndFlush(stock);
+        Stock stock = hospitalOptional.get().getStock();
+        stock.setVaccines(stockDto.getVaccines());
+        stock.setMasks(stockDto.getMasks());
+        stock.setBeds(stockDto.getBeds());
+        stock.setVentilators(stockDto.getVentilators());
+        return stockRepository.save(stock);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/stock")
+@RequestMapping("/hospital/stock")
 public class StockController {
     @Autowired
     private StockHandler stockHandler;

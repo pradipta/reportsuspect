@@ -154,8 +154,25 @@
 
       $(".add-hospital-btn").click(() => {
         console.log($("#add-hospital-form").serializeArray());
-        $("#stock-card").fadeIn(500)
-        $(".hospital-add-card").hide();
+        //addHospital
+        debugger;
+        $.ajax({
+          url: "/addHospital",
+          method: "POST",
+          data: $("#form").serializeArray(),
+          success: data => {
+            $("#form").fadeIn(200)
+
+            console.log(data);
+            $("#stock-card").fadeIn(500)
+            $(".hospital-add-card").hide();
+          },
+          error: err => {
+            alert("No hospital found by this id")
+
+            console.log(err);
+          }
+        });
 
       });
     });

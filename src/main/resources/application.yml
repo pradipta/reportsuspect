@@ -3,7 +3,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/reportsuspect
     username: root
-    password:
+    password: ueducation
     tomcat:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/reportsuspect

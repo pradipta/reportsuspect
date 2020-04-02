@@ -20,5 +20,5 @@ public class ReportDto {
     private String remarks;
     private Boolean isForSelf = false;
     @ManyToMany
-    private List<Location> visitedLocation;
+    private String visitedLocation;
 }

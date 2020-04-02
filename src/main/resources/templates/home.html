@@ -277,7 +277,7 @@
                                   type="hidden"
                                   class="form-control"
                                   id="multi-location-input"
-                                  name="visitedPLaces"
+                                  name="visitedLocation"
                                   data-role="tagsinput"
                           />
                         </div>
@@ -363,7 +363,7 @@
               <div class="col-md-12 reporter-col">
                 <div class="card-header">Track Application</div>
                 <div class="form-group" style="margin-top: 1rem">
-                  <label for="email">Application Id: </label>
+                  <label for="appId">Application Id: </label>
                   <input
                           type="text"
                           class="form-control"
@@ -579,7 +579,6 @@
       multiLocArray.push({
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
-        id: id
       });
       ids.push(id);
     }

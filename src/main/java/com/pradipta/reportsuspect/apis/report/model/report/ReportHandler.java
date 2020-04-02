@@ -1,5 +1,6 @@
 package com.pradipta.reportsuspect.apis.report.model.report;
 
+import com.google.gson.Gson;
 import com.pradipta.reportsuspect.core.auth.models.user.UserService;
 import com.pradipta.reportsuspect.core.constants.Status;
 import com.pradipta.reportsuspect.apis.report.dto.ReportDto;
@@ -7,11 +8,14 @@ import com.pradipta.reportsuspect.apis.report.model.location.Location;
 import com.pradipta.reportsuspect.apis.report.model.location.LocationService;
 import com.pradipta.reportsuspect.apis.report.model.report.Report;
 import com.pradipta.reportsuspect.apis.report.model.report.ReportService;
+import com.pradipta.reportsuspect.core.utils.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -22,6 +26,8 @@ public class ReportHandler {
     private UserService userService;
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private GsonUtil gsonUtil;
     public Report saveReport(ReportDto reportDto) throws Exception{
         Report report = new Report();
         report.setCreatedOn(new Date());
@@ -40,7 +46,9 @@ public class ReportHandler {
         report.setSuspectCurrentLocation(location);
         report.setStatus(Status.PENDING);
 
-        report.setVisitedLocation(reportDto.getVisitedLocation());
+        Location[] past = gsonUtil.gson.fromJson(reportDto.getVisitedLocation(), Location[].class);
+
+        report.setVisitedLocation(Arrays.asList(past));
         return reportService.saveReport(report);
     }
 

@@ -19,6 +19,7 @@ public class ReportDto {
     @NotNull
     private String remarks;
     private Boolean isForSelf = false;
-    @ManyToMany
+    //TODO
+    private String reasons;
     private String visitedLocation;
 }

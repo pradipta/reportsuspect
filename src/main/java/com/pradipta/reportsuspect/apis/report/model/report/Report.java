@@ -1,8 +1,10 @@
 package com.pradipta.reportsuspect.apis.report.model.report;
 
 import com.pradipta.reportsuspect.apis.report.model.location.Location;
+import com.pradipta.reportsuspect.apis.report.model.reason.Reason;
 import com.pradipta.reportsuspect.core.auth.models.user.User;
 import com.pradipta.reportsuspect.core.constants.Gender;
+import com.pradipta.reportsuspect.core.constants.ReasonsEnum;
 import com.pradipta.reportsuspect.core.constants.Status;
 import lombok.Data;
 
@@ -30,6 +32,8 @@ public class Report implements Serializable {
     private Location suspectCurrentLocation;
     @ManyToMany
     private List<Location> visitedLocation;
+    @ManyToMany
+    private List<Reason> reasons;
     private Status status;
     private Date createdOn;
     private Date modifiedOn;

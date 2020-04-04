@@ -21,7 +21,7 @@
             <form
                     id="add-hospital-form"
                     onsubmit="return submitForm()"
-                    class="was-validated"
+                    class="needs-validation was-validated"
             >
                 <div class="row">
                     <div class="col-md-12">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary add-hospital-btn">
+                <button type="button" class="btn btn-primary add-hospital-btn">
                     Add Hospital
                 </button>
             </form>
@@ -77,8 +77,13 @@
             Add Stocks
         </div>
 
-        <form id="form" onsubmit="return submitForm();" class="was-validated">
+        <form id="form" onsubmit="return submitForm();">
             <div class="card patient-card">
+                <div class="row">
+                    <div class="card-title hospital-id-title" style="margin:1rem;">
+                        <h4>Hospital Id: <b id="hospital-id"></b></h4>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -148,22 +153,26 @@
     let submitForm = () => {
       return false;
     };
-    $(document).ready(() => {
+    $(function() {
       let hospitalId = "";
       $("#stock-card").hide();
-
       $(".add-hospital-btn").click(() => {
         let objArr = $("#add-hospital-form").serializeArray();
         let obj = {};
+        debugger;
+        let valid = true;
         objArr.forEach(val => {
-          obj[val.name] = val.value;
+          if (val.value) {
+            obj[val.name] = val.value;
+          } else {
+            valid = false;
+          }
         });
-        // let obj = {
-        //   name: objArr[0].value,
-        //   city: objArr[1].value,
-        //   state: objArr[2].value
-        // };
-        //addHospital
+        if (valid) {
+          addHospital(obj);
+        }
+      });
+      function addHospital(obj) {
         $.ajax({
           url: "/hospital/addHospital",
           method: "POST",
@@ -175,25 +184,29 @@
 
             console.log(data);
             hospitalId = data.id;
+            alert("Hospital Id: " + hospitalId);
+            $("#hospital-id").text(hospitalId);
             $("#stock-card").fadeIn(500);
             $(".hospital-add-card").hide();
           },
           error: err => {
             alert("No hospital found by this id");
-
             console.log(err);
           }
         });
-      });
+      }
 
       $(".add-stock-submit").click(() => {
         let objArr = $("#form").serializeArray();
         let obj = {};
+        let valid = true;
         objArr.forEach(val => {
+        if(!val.value){valid = false}
           obj[val.name] = val.value;
         });
 
-        //addHospital
+        if(valid){
+        //add stocks
         $.ajax({
           url: `/stock/${hospitalId}/updateStock`,
           method: "POST",
@@ -209,6 +222,7 @@
             console.log(err);
           }
         });
+        }
       });
     });
   </script>

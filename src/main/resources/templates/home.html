@@ -269,7 +269,7 @@
                   <div class="col-md-12">
                     <div class="control-group">
                       <div class="form-group">
-                        <label class="control-label" for="keyword"
+                        <label class="control-label modal-label" for="keyword"
                         >Enter current location :</label
                         >
                         <div class="form-group">
@@ -629,6 +629,7 @@
     });
     $(".modal-activate-past").click(function() {
       $(".locations").show();
+      $(".modal-label").text("Enter past visited locations")
       multSelect = true;
       document.getElementById("map_canvas").style.display = "none";
       if (curLat) {

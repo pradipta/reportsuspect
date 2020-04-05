@@ -12,18 +12,18 @@
           rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   />
+  <link rel="stylesheet" href="./style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-z3vU0XkkvDo7lP6VS65bmwB1T867YG8&v=3.exp&libraries=places,geometry&sensor=false"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgNyzRAgsEt_aj-tSy-UVtg5i5YpAK9LA&v=3.exp&libraries=places,geometry&sensor=false"
           async
           defer
   ></script>
+  <link rel="stylesheet" href="/css/style.css">
   <style>
-    body {
-      background-color: #36485e;
-    }
+
     .top-row {
       margin: 0 !important;
     }
@@ -32,6 +32,7 @@
     }
     .report-card {
       width: 100%;
+      margin: 1rem;
     }
     .container {
       padding-top: 1%;
@@ -55,7 +56,7 @@
       margin-left: 42%;
     }
     .segment-button {
-      width: 100%;
+      width: 98%;
     }
     .track-card {
       width: 100%;
@@ -84,10 +85,7 @@
     .data-card {
       margin: 1rem;
     }
-    .btn {
-      background-color: blue;
-      color: white;
-    }
+
     .btn-track {
       width: 30%;
       margin-left: 33%;
@@ -112,6 +110,9 @@
     }
     .multi-locs-row {
       margin: 0px;
+    }
+    .card{
+      box-shadow: none !important;
     }
   </style>
 </head>
@@ -352,7 +353,7 @@
 
     <div class="row track-main-row">
       <div class="container">
-        <div class="card">
+        <div class="card" style="margin-bottom: 1rem">
           <form
                   id="filesfrm"
                   method="post"
@@ -447,13 +448,13 @@
 
     $("#report-button").click(function() {
       $(".track-button").css("background-color", "#cccccc");
-      $(this).css("background-color", "blue");
+      $(this).css("background-color", "#4385a8");
       $(".track-main-row").hide();
       $(".report-main-row").fadeIn(200);
     });
     $("#track-button").click(function() {
       $(".report-button").css("background-color", "#cccccc");
-      $(this).css("background-color", "blue");
+      $(this).css("background-color", "#4385a8");
       $(".track-main-row").fadeIn(200);
       $(".report-main-row").hide();
     });

@@ -15,61 +15,76 @@
 </head>
 <body>
 <div class="container">
-    <div class="card hospital-add-card">
+    <div class="card hospital-add-card" style="margin-top: 10%">
         <div class="card-header">Add Hospital</div>
-        <div class="card-body add-hospital-super">
-            <form
-                    id="add-hospital-form"
-                    onsubmit="return submitForm()"
-                    class="needs-validation was-validated"
-            >
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="hName">Hospital name:</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="hName"
-                                    placeholder="Enter hospital name"
-                                    name="name"
-                                    required
-                            />
+        <div class="row">
+            <div class="col-md-4">
+                <img
+                        src="/images/hospital-card.svg"
+                        class="hospital-card-img"
+                        style="
+            max-width: none;
+            width: 100%;
+            margin: 1rem;
+        "
+                />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body add-hospital-super">
+                    <form
+                            id="add-hospital-form"
+                            onsubmit="return submitForm()"
+                            class="needs-validation was-validated"
+                    >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="hName">Hospital name:</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="hName"
+                                            placeholder="Enter hospital name"
+                                            name="name"
+                                            required
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="hCity">City:</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="hCity"
+                                            placeholder="Enter city"
+                                            name="city"
+                                            required
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="hState">State:</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="hState"
+                                            placeholder="Enter hospital name"
+                                            name="state"
+                                            required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary add-hospital-btn">
+                            Add Hospital
+                        </button>
+                    </form>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="hCity">City:</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="hCity"
-                                    placeholder="Enter city"
-                                    name="city"
-                                    required
-                            />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="hState">State:</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="hState"
-                                    placeholder="Enter hospital name"
-                                    name="state"
-                                    required
-                            />
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary add-hospital-btn">
-                    Add Hospital
-                </button>
-            </form>
+            </div>
         </div>
     </div>
     <div class="card stock-card" id="stock-card">
@@ -80,7 +95,7 @@
         <form id="form" onsubmit="return submitForm();">
             <div class="card patient-card">
                 <div class="row">
-                    <div class="card-title hospital-id-title" style="margin:1rem;">
+                    <div class="card-title hospital-id-title">
                         <h4>Hospital Id: <b id="hospital-id"></b></h4>
                     </div>
                 </div>
@@ -199,16 +214,13 @@
       $(".add-stock-submit").click(() => {
         let objArr = $("#form").serializeArray();
         let obj = {};
-        let valid = true;
         objArr.forEach(val => {
-        if(!val.value){valid = false}
-          obj[val.name] = val.value;
+          obj[val].name = obj[val].value;
         });
 
-        if(valid){
-        //add stocks
+        //addHospital
         $.ajax({
-          url: `/stock/${hospitalId}/updateStock`,
+          url: `/${hospitalId}/updateStock`,
           method: "POST",
           contentType: "application/json",
           data: JSON.stringify(obj),
@@ -222,7 +234,6 @@
             console.log(err);
           }
         });
-        }
       });
     });
   </script>

@@ -6,4 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GsonUtil {
     public Gson gson;
+    public GsonUtil() {
+        gson = new Gson();
+    }
 }

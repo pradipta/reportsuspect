@@ -47,7 +47,7 @@ public class ReportHandler {
         report.setStatus(Status.PENDING);
 
         Location[] past = gsonUtil.gson.fromJson(reportDto.getVisitedLocation(), Location[].class);
-
+        Arrays.stream(past).forEach(location1 -> locationService.saveLocation(location1));
         report.setVisitedLocation(Arrays.asList(past));
         return reportService.saveReport(report);
     }

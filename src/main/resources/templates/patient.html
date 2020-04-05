@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<html
-        lang="en"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en">
 <head>
     <title>Patient Info</title>
     <meta charset="utf-8" />
@@ -18,16 +14,35 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
+<!-- <ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Disabled</a>
+  </li>
+</ul> -->
 <div class="container">
     <div class="card patient-form-card">
-        <h2>Form Validation</h2>
+        <!-- <h2>Form Validation</h2> -->
 
-        <form id="form" onsubmit="return submitForm();" class="was-validated">
+        <form
+                id="form"
+                onsubmit="return submitForm();"
+                class="needs-validation"
+                novalidate
+        >
             <div class="card patient-card">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="fName">First Name:</label>
+                            <label for="fName">First Name: <b>*</b></label>
                             <input
                                     type="text"
                                     class="form-control"
@@ -40,7 +55,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="lName">Last Name:</label>
+                            <label for="lName">Last Name: <b>*</b></label>
                             <input
                                     type="text"
                                     class="form-control"
@@ -55,7 +70,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="phone">Phone number:</label>
+                            <label for="phone">Phone number: <b>*</b></label>
                             <input
                                     type="number"
                                     class="form-control"
@@ -79,7 +94,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="age">Age:</label>
+                            <label for="age">Age: <b>*</b></label>
                             <input
                                     type="number"
                                     class="form-control"
@@ -179,7 +194,10 @@
         </form>
     </div>
 </div>
+
+<!-- sidemenu -->
 </body>
+
 <script>
     let submitForm = () => {
       return false;
@@ -188,15 +206,22 @@
     $(document).ready(() => {
       $(".contact-super-card-header").hide();
       $(".submit-button").click(function() {
-        debugger;
         let patientResponse = $("#form").serializeArray();
+      //  for(let i=0 ; i< 5;i++){
+
+      //  }
+      postCall(patientResponse)
+      });
+
+      function postCall(patientResponse) {
         let contactResponseTemp = Array();
+        debugger;
         if (patientResponse.length > 5) {
           let contactResponse = patientResponse.slice(
             5,
             patientResponse.length
           );
-          patientResponse = patientResponse.slice(0, 4);
+          patientResponse = patientResponse.slice(0, 5);
 
           for (let i = 0; i < contactResponse.length / 4; i++) {
             contactResponseTemp.push([
@@ -207,29 +232,28 @@
             ]);
           }
         }
-        contactResponseTemp = JSON.stringify(contactResponseTemp)
+        patientResponse[4].value = parseInt(patientResponse[4].value)
+
         patientResponse.push({
           name: "contacts",
-          value: contactResponseTemp
+          value: JSON.stringify(contactResponseTemp)
         });
         console.log(patientResponse);
         $.ajax({
-          url: "/addPatient",
-          headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    },
+          url: "/contacts/addPatient",
           method: "POST",
-          data: JSON.stringify(patientResponse),
-          dataType: 'json',
+           contentType: "application/json",
+          data:  JSON.stringify(patientResponse) ,
           success: data => {
             console.log(data);
+            alert("Data uploaded successfully")
           },
           error: err => {
             console.log(err);
+            alert("Data cannot be uploaded. Please try again later")
           }
         });
-      });
+      }
 
       $(".add-contact-btn").click(function() {
         let ele =
